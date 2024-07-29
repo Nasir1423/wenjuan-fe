@@ -3,6 +3,7 @@
     margin-bottom: 20px;
 
     .left {
+        /* flex: 1; 对应 flex: 1 1 0; 表示：拉伸：✓；压缩：✓；基准长度：0（使用最多） */
         flex: 1;
     }
 

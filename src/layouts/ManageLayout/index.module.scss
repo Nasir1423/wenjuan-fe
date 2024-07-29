@@ -1,0 +1,17 @@
+.container {
+  /* 上下内边距，左右内边距 */
+  padding: 24px 0;
+  width: 1200px;
+  /* 上下外边距，左右外边距 */
+  margin: 0 auto;
+  display: flex;
+
+  .left {
+    width: 120px;
+  }
+
+  .right {
+    flex: 1;
+    margin-left: 60px;
+  }
+}

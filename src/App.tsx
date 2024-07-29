@@ -1,17 +1,13 @@
 import { FC } from 'react';
-import List from './pages/List';
+import Routes from './router';
 
 const App: FC = () => {
-  return (
-    <>
-      <List />
-    </>
-  );
+  return <Routes />;
 };
 
 export default App;
 
 /* 
   src/components --- 组件（零件）
-  src/pages      --- 页面（跳转、切换、大面积的）
+  src/pages      --- 页面（跳转、切换、大面积的），关注业务
 */

@@ -2,5 +2,6 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit"
     },
-     "files.eol": "\n"
+    "files.eol": "\n",
+    "window.density.editorTabHeight": "default"
 }

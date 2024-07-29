@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styles from './index.module.scss';
-import { Question } from '../../pages/List';
+import Question from '@/types/Question';
 
 const QuestionCard: FC<Question> = props => {
   const { title, isStart, isPublished, answerCount, createAt } = props;

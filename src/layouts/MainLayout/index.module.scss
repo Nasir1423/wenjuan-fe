@@ -1,0 +1,29 @@
+/* styles.scss */
+
+/* Define the heights for header and footer */
+$header-height: 64px; /* Replace with actual header height */
+$footer-height: 71px; /* Replace with actual footer height */
+
+/* Header styles */
+.header {
+  padding: 0 24px;
+  color: whitesmoke;
+  display: flex;
+  justify-content: space-between;
+  height: $header-height; /* Ensure header has a fixed height */
+}
+
+/* Content styles */
+.content {
+  min-height: calc(100vh - #{$header-height} - #{$footer-height} - 16px);
+  padding: 20px; /* Optional: Add padding if needed */
+  /* Ensure it occupies the remaining space */
+}
+
+/* Footer styles */
+.footer {
+  text-align: center;
+  background-color: #f7f7f7;
+  border-top: 1px solid #e8e8e8;
+  height: $footer-height; /* Ensure footer has a fixed height */
+}

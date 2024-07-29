@@ -1,16 +1,4 @@
-import { FC, useState } from 'react';
-import QuestionCard from '../../components/QuestionCard';
-import styles from './index.module.scss';
-
-export type Question = {
-  id: string;
-  title: string;
-  isPublished: boolean;
-  isStart: boolean;
-  answerCount: number;
-  createAt: string;
-};
-
+import Question from '@/types/Question';
 const rawQuestionList: Question[] = [
   {
     id: 'd65b254b-0b80-4c4d-b6a7-25d14c4b1f4f',
@@ -101,26 +89,4 @@ const rawQuestionList: Question[] = [
     createAt: '2021-10-30T17:05:00.000Z',
   },
 ];
-
-const List: FC = () => {
-  const [questionList] = useState<Question[]>(rawQuestionList);
-  return (
-    <>
-      <div className={styles.header}>
-        <div className={styles.left}>
-          <h3>我的问卷</h3>
-        </div>
-        <div className={styles.right}> (搜素) </div>
-      </div>
-      <div className={styles.content}>
-        {questionList.map(question => {
-          const { id } = question;
-          return <QuestionCard key={id} {...question} />;
-        })}
-      </div>
-      <div className={styles.footer}>footer</div>
-    </>
-  );
-};
-
-export default List;
+export default rawQuestionList;
