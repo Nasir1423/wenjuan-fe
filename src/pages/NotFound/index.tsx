@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTitle } from 'ahooks';
 import { Button, Result } from 'antd';
+import { HOME_PATHNAME } from '@/router';
 
 const NotFound: FC = () => {
   const nav = useNavigate();
@@ -15,7 +16,7 @@ const NotFound: FC = () => {
         <Button
           type="primary"
           onClick={() => {
-            nav('/');
+            nav(HOME_PATHNAME);
           }}
         >
           Back Home

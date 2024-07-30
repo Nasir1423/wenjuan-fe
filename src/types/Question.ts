@@ -2,7 +2,7 @@ type Question = {
   id: string;
   title: string;
   isPublished: boolean;
-  isStart: boolean;
+  isStar: boolean;
   answerCount: number;
   createAt: string;
 };

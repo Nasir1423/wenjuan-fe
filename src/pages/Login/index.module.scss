@@ -1,0 +1,11 @@
+$header-height: 64px;
+$footer-height: 71px;
+
+.container {
+    min-height: calc(100vh - #{$header-height} - #{$footer-height} - 16px);
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
