@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
     "@types/node": "^22.0.0",
     "ahooks": "^3.8.0",
     "antd": "^5.19.3",

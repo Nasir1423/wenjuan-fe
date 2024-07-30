@@ -3,5 +3,9 @@
         "source.fixAll.eslint": "explicit"
     },
     "files.eol": "\n",
-    "window.density.editorTabHeight": "default"
+    "window.density.editorTabHeight": "default",
+    "cSpell.words": [
+        "ahooks",
+        "antd"
+    ]
 }
