@@ -4,13 +4,13 @@
   align-items: center;
 
   .left {
-      /* flex: 1; 对应 flex: 1 1 0; 表示：拉伸：✓；压缩：✓；基准长度：0（使用最多） */
-      flex: 1;
+    /* flex: 1; 对应 flex: 1 1 0; 表示：拉伸：✓；压缩：✓；基准长度：0（使用最多） */
+    flex: 1;
   }
 
   .right {
-      flex: 1;
-      text-align: right;
+    flex: 1;
+    text-align: right;
   }
 }
 
@@ -21,4 +21,10 @@
 
 .footer {
   text-align: center;
+}
+
+.spinContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }

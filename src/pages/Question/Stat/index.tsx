@@ -1,11 +1,17 @@
 import { FC } from 'react';
-import { useParams } from 'react-router-dom';
 import { useTitle } from 'ahooks';
+import useLoadingData from '@/hooks/useLoadQuestionData';
 
 const Stat: FC = () => {
   useTitle('问卷星 - 问卷数据');
-  const { id } = useParams();
-  return <>Stat {id}</>;
+  const { loading, data } = useLoadingData();
+
+  return (
+    <>
+      <p>Stat Page</p>
+      {loading ? <p>loading question info...😅</p> : <p>{JSON.stringify(data)}</p>}
+    </>
+  );
 };
 
 export default Stat;

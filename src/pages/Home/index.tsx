@@ -2,12 +2,17 @@ import { useTitle } from 'ahooks';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Button } from 'antd';
+
 import { MANAGE_LIST_PATHNAME } from '@/router';
 import styles from './index.module.scss';
 
 const { Title, Paragraph } = Typography;
 
 const Home: FC = () => {
+  /*   useEffect(() => {
+    axios.get('/api/test').then(res => console.log('axios get', res));
+    axios.post('/api/question').then(res => console.log('axios post', res));
+  }, []); */
   const nav = useNavigate();
   useTitle('问卷星');
   return (

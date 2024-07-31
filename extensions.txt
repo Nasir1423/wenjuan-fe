@@ -1,0 +1,10 @@
+bang.antd-snippets
+dbaeumer.vscode-eslint
+dsznajder.es7-react-js-snippets
+esbenp.prettier-vscode
+formulahendry.code-runner
+ms-ceintl.vscode-language-pack-zh-hans
+pkief.material-icon-theme
+ritwickdey.liveserver
+wix.vscode-import-cost
+zhuangtongfa.material-theme

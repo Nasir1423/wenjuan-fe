@@ -1,23 +1,21 @@
 import { FC, useState } from 'react';
-import { Typography, Empty, Tag, Table, Space, Button, Modal } from 'antd';
+import { Typography, Empty, Tag, Table, Space, Button, Modal, Spin } from 'antd';
 import type { Key } from 'react';
 import type { TableColumnsType } from 'antd';
 import { useTitle } from 'ahooks';
 
+import useLoadQuestionListData from '@/hooks/useLoadQuestionListData';
 import ListSearch from '@/components/ListSearch';
 import Question from '@/types/Question';
-import rawQuestionList from '@/mocks/rawQuestionList';
 import styles from '../common.module.scss';
 
 const { Title } = Typography;
 const { confirm } = Modal;
-const rawTrashQuestionList: Question[] = rawQuestionList.filter(() => Math.random() > 0.5);
-
-const Star: FC = () => {
-  const [questionList] = useState<Question[]>(rawTrashQuestionList);
+interface TableElemProps {
+  source: Question[];
+}
+const TableElem: FC<TableElemProps> = ({ source }) => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  useTitle('问卷星 - 回收站');
-
   const columns: TableColumnsType<Question> = [
     {
       title: '标题',
@@ -70,8 +68,7 @@ const Star: FC = () => {
       },
     });
   };
-
-  const TableElem = (
+  return (
     <>
       <Space style={{ marginBottom: '20px' }}>
         <Button
@@ -94,7 +91,7 @@ const Star: FC = () => {
       </Space>
       <Table
         columns={columns}
-        dataSource={questionList}
+        dataSource={source}
         pagination={false}
         rowKey={record => record.id}
         rowSelection={{
@@ -106,6 +103,12 @@ const Star: FC = () => {
       />
     </>
   );
+};
+
+const Trash: FC = () => {
+  useTitle('问卷星 - 回收站');
+  const { loading, data = {} } = useLoadQuestionListData();
+  const { list: questionList } = data as { list: Question[] };
 
   return (
     <>
@@ -117,12 +120,26 @@ const Star: FC = () => {
           <ListSearch />
         </div>
       </div>
-      <div className={styles.content}>
-        {questionList.length <= 0 ? <Empty description="暂无数据" /> : TableElem}
-      </div>
-      <div className={styles.footer}>分页</div>
+      {loading && (
+        <div className={styles.spinContainer}>
+          <Spin size="large"></Spin>
+        </div>
+      )}
+      {!loading && (
+        <>
+          {' '}
+          <div className={styles.content}>
+            {questionList.length <= 0 ? (
+              <Empty description="暂无数据" />
+            ) : (
+              <TableElem source={questionList} />
+            )}
+          </div>
+          <div className={styles.footer}>分页</div>
+        </>
+      )}
     </>
   );
 };
 
-export default Star;
+export default Trash;
