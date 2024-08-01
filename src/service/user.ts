@@ -11,7 +11,7 @@ export async function registerUserService(
   nickname?: string
 ): Promise<ResDataType> {
   const url = '/api/user/register';
-  return await instance.post(url, { username, password, nickname });
+  return await instance.post(url, { username, password, nickname: nickname || username });
 }
 
 export async function loginUserService(username: string, password: string): Promise<ResDataType> {

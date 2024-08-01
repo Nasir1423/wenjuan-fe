@@ -1,11 +1,12 @@
 import { FC } from 'react';
-import { Typography, Space, Form, Input, Button } from 'antd';
+import { Typography, Space, Form, Input, Button, message } from 'antd';
 import type { FormProps } from 'antd';
-import { Link } from 'react-router-dom';
-import { useTitle } from 'ahooks';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRequest, useTitle } from 'ahooks';
 import { UserAddOutlined } from '@ant-design/icons';
 import { LOGIN_PATHNAME } from '@/router';
 import styles from './index.module.scss';
+import { registerUserService } from '@/service/user';
 
 const { Title } = Typography;
 
@@ -18,9 +19,24 @@ type FieldType = {
 
 const Register: FC = () => {
   useTitle('问卷星 - 用户注册');
+  const nav = useNavigate();
+
+  const { run: register } = useRequest(
+    async ({ username, password, nickname = '' }) => {
+      return await registerUserService(username, password, nickname);
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success('注册成功');
+        nav(LOGIN_PATHNAME);
+      },
+    }
+  );
 
   const handleFinish: FormProps<FieldType>['onFinish'] = values => {
     console.log('Success: ', values);
+    register(values);
   };
 
   const handleFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {

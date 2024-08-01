@@ -6,6 +6,10 @@
     "window.density.editorTabHeight": "default",
     "cSpell.words": [
         "ahooks",
-        "antd"
-    ]
+        "antd",
+        "Unlogged"
+    ],
+    "editor.fontFamily": "Fira Code",
+    "editor.fontWeight": "normal",
+    "editor.fontLigatures": true,
 }

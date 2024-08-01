@@ -1,10 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import { message } from 'antd';
+import { getToken } from '@/utils/userTokenStorage';
 
 const instance = axios.create({
   timeout: 1000 * 10, // 指定请求超时的毫秒数（10000 毫秒，即 10 秒）
 });
+
+// 添加请求拦截器
+instance.interceptors.request.use(
+  function (config) {
+    // 在发送请求之前做些什么
+    config.headers['Authorization'] = `Bearer ${getToken()}`; // JWT 固定格式
+    return config;
+  },
+  function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  }
+);
 
 // 添加响应拦截器
 instance.interceptors.response.use(

@@ -1,11 +1,14 @@
 import { FC, useEffect } from 'react';
-import { Typography, Space, Form, Input, Button, Checkbox } from 'antd';
+import { Typography, Space, Form, Input, Button, Checkbox, message } from 'antd';
 import type { FormProps } from 'antd';
-import { Link } from 'react-router-dom';
-import { useTitle } from 'ahooks';
+import { Link, useNavigate } from 'react-router-dom';
+import { useRequest, useTitle } from 'ahooks';
 import { UserAddOutlined } from '@ant-design/icons';
-import { REGISTER_PATHNAME } from '@/router';
+import { MANAGE_LIST_PATHNAME, REGISTER_PATHNAME } from '@/router';
 import styles from './index.module.scss';
+import { loginUserService } from '@/service/user';
+import { rememberUser, accessUser, forgetUser } from '@/utils/userLoginInfoStorage';
+import { setToken } from '@/utils/userTokenStorage';
 
 const { Title } = Typography;
 
@@ -16,37 +19,34 @@ type FieldType = {
   remember?: boolean;
 };
 
-/* 将用户名和密码保存到 LocalStorage 时所使用的键 */
-const ls = { USERNAME_KEY: 'USERNAME', PASSWORD_KEY: 'PASSWORD' };
-
 const Register: FC = () => {
   useTitle('问卷星 - 用户登录');
   const [form] = Form.useForm();
+  const nav = useNavigate();
 
   useEffect(() => {
     const userInfo = accessUser();
     form.setFieldsValue(userInfo);
   }, [form]);
 
-  const rememberUser = (userInfo: FieldType) => {
-    localStorage.setItem(ls.USERNAME_KEY, userInfo.username);
-    localStorage.setItem(ls.PASSWORD_KEY, userInfo.password);
-  };
-
-  const forgetUser = () => {
-    localStorage.removeItem(ls.USERNAME_KEY);
-    localStorage.removeItem(ls.PASSWORD_KEY);
-  };
-
-  const accessUser = () => {
-    return {
-      username: localStorage.getItem(ls.USERNAME_KEY),
-      password: localStorage.getItem(ls.PASSWORD_KEY),
-    };
-  };
+  const { run: login } = useRequest(
+    async ({ username, password }) => {
+      return await loginUserService(username, password);
+    },
+    {
+      manual: true,
+      onSuccess(res) {
+        message.success('登录成功');
+        nav(MANAGE_LIST_PATHNAME);
+        const { token } = res;
+        setToken(token);
+      },
+    }
+  );
 
   const handleFinish: FormProps<FieldType>['onFinish'] = ({ username, password, remember }) => {
     console.log('Success: ', { username, password, remember });
+    login({ username, password });
     if (remember) rememberUser({ username, password });
     else forgetUser();
   };
