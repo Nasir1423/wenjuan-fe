@@ -83,11 +83,7 @@ const Register: FC = () => {
             >
               <Input.Password autoComplete="new-password"></Input.Password>
             </Form.Item>
-            <Form.Item
-              label="昵称"
-              name="nickname"
-              rules={[{ required: true, message: '请填写昵称!' }]}
-            >
+            <Form.Item label="昵称" name="nickname">
               <Input></Input>
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 8 }}>

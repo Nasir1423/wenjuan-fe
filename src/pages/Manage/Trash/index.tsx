@@ -1,20 +1,23 @@
 import { FC, useState } from 'react';
-import { Typography, Empty, Tag, Table, Space, Button, Modal, Spin } from 'antd';
+import { Typography, Empty, Tag, Table, Space, Button, Modal, Spin, message } from 'antd';
 import type { Key } from 'react';
 import type { TableColumnsType } from 'antd';
-import { useTitle } from 'ahooks';
+import { useRequest, useTitle } from 'ahooks';
 
 import useLoadQuestionListData from '@/hooks/useLoadQuestionListData';
 import ListSearch from '@/components/ListSearch';
 import Question from '@/types/Question';
 import styles from '../common.module.scss';
+import ListPagination from '@/components/ListPagination';
+import { deleteQuestionsService, updateQuestionService } from '@/service/question';
 
 const { Title } = Typography;
 const { confirm } = Modal;
 interface TableElemProps {
   source: Question[];
+  refreash: () => void;
 }
-const TableElem: FC<TableElemProps> = ({ source }) => {
+const TableElem: FC<TableElemProps> = ({ source, refreash }) => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const columns: TableColumnsType<Question> = [
     {
@@ -38,17 +41,35 @@ const TableElem: FC<TableElemProps> = ({ source }) => {
     },
     {
       title: '创建时间',
-      dataIndex: 'createAt',
+      dataIndex: 'createdAt',
       align: 'center',
     },
   ];
+
+  // 恢复
+  const { run: recover } = useRequest(
+    async () => {
+      for await (const id of selectedIds) {
+        await updateQuestionService(id, { isDeleted: false });
+      }
+    },
+    {
+      manual: true,
+      debounceWait: 500,
+      onSuccess() {
+        message.success('恢复成功');
+        refreash(); // 刷新，用于重新获取数据
+        setSelectedIds([]);
+      },
+    }
+  );
 
   const handleRecover = () => {
     confirm({
       title: '恢复确认',
       content: '你确认恢复吗？',
       onOk: () => {
-        alert('执行恢复操作！');
+        recover();
       },
       onCancel: () => {
         console.log('恢复操作取消');
@@ -56,18 +77,30 @@ const TableElem: FC<TableElemProps> = ({ source }) => {
     });
   };
 
+  // 删除
+  const { run: deleteQuestions } = useRequest(async () => deleteQuestionsService(selectedIds), {
+    manual: true,
+    debounceWait: 500,
+    onSuccess() {
+      message.success('所选问卷已彻底删除');
+      refreash(); // 刷新，用于重新获取数据
+      setSelectedIds([]);
+    },
+  });
+
   const handleDelete = () => {
     confirm({
       title: '删除确认',
       content: '你确认彻底删除吗？一旦删除将无法恢复',
       onOk: () => {
-        alert('执行删除操作！');
+        deleteQuestions();
       },
       onCancel: () => {
         console.log('删除操作取消');
       },
     });
   };
+
   return (
     <>
       <Space style={{ marginBottom: '20px' }}>
@@ -107,8 +140,8 @@ const TableElem: FC<TableElemProps> = ({ source }) => {
 
 const Trash: FC = () => {
   useTitle('问卷星 - 回收站');
-  const { loading, data = {} } = useLoadQuestionListData();
-  const { list: questionList } = data as { list: Question[] };
+  const { loading, data = {}, refresh } = useLoadQuestionListData();
+  const { list: questionList, total } = data as { list: Question[]; total: number };
 
   return (
     <>
@@ -127,15 +160,16 @@ const Trash: FC = () => {
       )}
       {!loading && (
         <>
-          {' '}
           <div className={styles.content}>
             {questionList.length <= 0 ? (
               <Empty description="暂无数据" />
             ) : (
-              <TableElem source={questionList} />
+              <TableElem source={questionList} refreash={refresh} />
             )}
           </div>
-          <div className={styles.footer}>分页</div>
+          <div className={styles.footer}>
+            <ListPagination total={total} />
+          </div>
         </>
       )}
     </>

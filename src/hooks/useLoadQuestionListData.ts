@@ -1,6 +1,7 @@
 import { useRequest } from 'ahooks';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { getQuestionListService } from '@/service/question';
+import { MANAGE_STAR_PATHNAME, MANAGE_TRASH_PATHNAME } from '@/router';
 
 /**
  * @description 根据 URL 的 keyword 参数，获取指定的问卷列表
@@ -8,16 +9,20 @@ import { getQuestionListService } from '@/service/question';
  */
 function useLoadQuestionListData() {
   const [searchParams] = useSearchParams();
-  const pageType = getPageType(useLocation().pathname);
+  const { pathname } = useLocation();
 
   /* 页面加载和依赖更新时，useRequest 会执行获取问卷列表数据 */
   return useRequest(
     async () => {
-      const keywords = searchParams.get('keywords') || '';
+      const keywords = searchParams.get(LIST_SEARCH_PARAM_KEY) || '';
+      const page = parseInt(searchParams.get(LIST_PAGE_PARAM_KEY) || '') || 1;
+      const pageSize = parseInt(searchParams.get(LIST_PAGE_SIZE_PARAM_KEY) || '') || LIST_PAGE_SIZE;
       return await getQuestionListService({
         keywords,
-        isStar: pageType === 'star',
-        isDeleted: pageType === 'trash',
+        isDeleted: pathname === MANAGE_TRASH_PATHNAME,
+        isStar: pathname === MANAGE_STAR_PATHNAME,
+        page,
+        pageSize,
       });
     },
     { refreshDeps: [searchParams] }
@@ -26,9 +31,7 @@ function useLoadQuestionListData() {
 
 export default useLoadQuestionListData;
 
-function getPageType(pathname: string): 'normal' | 'star' | 'trash' | '' {
-  if (pathname.endsWith('list')) return 'normal';
-  else if (pathname.endsWith('star')) return 'star';
-  else if (pathname.endsWith('trash')) return 'trash';
-  else return '';
-}
+export const LIST_PAGE_SIZE = 10;
+export const LIST_SEARCH_PARAM_KEY = 'keyword';
+export const LIST_PAGE_PARAM_KEY = 'page';
+export const LIST_PAGE_SIZE_PARAM_KEY = 'pageSize';

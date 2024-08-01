@@ -7,13 +7,14 @@ import ListSearch from '@/components/ListSearch';
 import Question from '@/types/Question';
 import styles from '../common.module.scss';
 import useLoadQuestionListData from '@/hooks/useLoadQuestionListData';
+import ListPagination from '@/components/ListPagination';
 
 const { Title } = Typography;
 
 const Star: FC = () => {
   useTitle('问卷星 - 星标问卷');
   const { loading, data = {} } = useLoadQuestionListData();
-  const { list: questionList } = data as { list: Question[] };
+  const { list: questionList, total } = data as { list: Question[]; total: number };
   return (
     <>
       <div className={styles.header}>
@@ -41,7 +42,9 @@ const Star: FC = () => {
               })
             )}
           </div>
-          <div className={styles.footer}>分页</div>
+          <div className={styles.footer}>
+            <ListPagination total={total} />
+          </div>
         </>
       )}
     </>
