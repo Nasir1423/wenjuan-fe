@@ -9,6 +9,8 @@ import styles from './index.module.scss';
 import { loginUserService } from '@/service/user';
 import { rememberUser, accessUser, forgetUser } from '@/utils/userLoginInfoStorage';
 import { setToken } from '@/utils/userTokenStorage';
+import { useDispatch } from 'react-redux';
+import { loginReducer } from '@/store/user';
 
 const { Title } = Typography;
 
@@ -23,6 +25,7 @@ const Register: FC = () => {
   useTitle('问卷星 - 用户登录');
   const [form] = Form.useForm();
   const nav = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const userInfo = accessUser();
@@ -35,11 +38,13 @@ const Register: FC = () => {
     },
     {
       manual: true,
-      onSuccess(res) {
+      onSuccess(res, params) {
         message.success('登录成功');
         nav(MANAGE_LIST_PATHNAME);
         const { token } = res;
         setToken(token);
+        console.log(params);
+        dispatch(loginReducer({ username: params[0].username, nickname: '' }));
       },
     }
   );

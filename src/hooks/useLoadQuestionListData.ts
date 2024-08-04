@@ -4,8 +4,8 @@ import { getQuestionListService } from '@/service/question';
 import { MANAGE_STAR_PATHNAME, MANAGE_TRASH_PATHNAME } from '@/router';
 
 /**
- * @description 根据 URL 的 keyword 参数，获取指定的问卷列表
- * @retutn 即 useRequest 的返回值，可解构出 data、error、loading 等参数
+ * @description 根据查询字符串，获取指定的问卷列表。注：随着查询字符串的变化，会持续获取到最新的问卷列表。
+ * @return 即 useRequest 的返回值，可解构出 data、error、loading 等参数
  */
 function useLoadQuestionListData() {
   const [searchParams] = useSearchParams();

@@ -1,30 +1,30 @@
 import { FC, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
-import { getToken, removeToken } from '@/utils/userTokenStorage';
-import { useRequest } from 'ahooks';
-import { getUserInfoService } from '@/service/user';
+import { Button, message } from 'antd';
+import { removeToken } from '@/utils/userTokenStorage';
 import { LOGIN_PATHNAME } from '@/router';
 import { UserOutlined } from '@ant-design/icons';
+import useGetUserInfo from '@/hooks/useGetUserInfo';
+import { useDispatch } from 'react-redux';
+import { logoutReducer } from '@/store/user';
 
 const UserInfo: FC = () => {
-  const [isLogin, setIsLogin] = useState(Boolean(getToken()));
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data, run: fetchUserInfo } = useRequest(getUserInfoService, { manual: true });
-
+  const { username, nickname } = useGetUserInfo();
+  const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
-    if (isLogin) {
-      fetchUserInfo();
-    }
-  }, [isLogin, fetchUserInfo]);
+    // const token = getToken();
+    // setIsLogin(Boolean(username && token));
+    setIsLogin(Boolean(username));
+  }, [username]);
 
   const handleLogout = () => {
-    removeToken();
-    setIsLogin(false);
-    navigate(LOGIN_PATHNAME);
+    dispatch(logoutReducer()); // 重置 Redux 中存储的用户数据
+    removeToken(); // 清空 LocalStorage 中存储的用户标识令牌
+    navigate(LOGIN_PATHNAME); // 导航登录页面
+    message.success('登出成功');
   };
-
-  const { nickname } = data || {};
 
   return (
     <>
@@ -32,7 +32,8 @@ const UserInfo: FC = () => {
         <div style={{ color: '#e8e8e8' }}>
           <span>
             <UserOutlined />
-            &nbsp;{nickname}
+            &nbsp;
+            {nickname || username}
           </span>
           <Button type="link" onClick={handleLogout}>
             登出

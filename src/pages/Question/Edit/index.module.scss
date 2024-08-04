@@ -1,0 +1,94 @@
+$componentBgColor: #fff;
+
+.container {
+
+    height: 100%;
+    background-color: #f0f2f5;
+
+    display: flex;
+    flex-direction: column;
+
+    /* 顶部工具栏 */
+    .header {
+        height: 40px;
+        background-color: $componentBgColor;
+    }
+
+    .content-wrapper {
+        /* 关于 flex: auto 的解释
+            - flex 是 flex-grow flex-shrink flex-basis 的复合属性
+            - flex: auto <==> flex: 1 1 auto <==> 允许拉伸、允许压缩、不设置基准长度（即默认以伸缩项目的宽或高为准，如果设置了的话） */
+        flex: auto;
+        /* 关于 padding: <length> <length> 的解释
+            - 第一个长度值表示 padding-top/bottom
+            - 第二个长度值表示 padding-left/right */
+        padding: 12px 0;
+        /* margin 设置两个值与 padding 同义 */
+        margin: 0 24px;
+
+        .content {
+            height: 100%;
+            display: flex;
+
+            /* 左侧组件库&图层 */
+            .left {
+                width: 285px;
+                background-color: $componentBgColor;
+                padding: 0 12px;
+            }
+
+            /* 中间画布 */
+            .main {
+                /* 关于 flex: 1 的解释
+                    - flex: 1 <==> flex: 1 1 0 <==> 允许拉伸、允许压缩、基准长度为 0
+                    - 由于 content 下的三个伸缩项目只有 main 的 flex-grow 为 1，其他都是默认值 0 ==> main 占据剩余主轴空间
+                    - 简而言之，flex: 1 是一种响应式处理 ==> 让元素能够动态地根据容器的可用空间扩展或收缩。 */
+                flex: 1;
+                /* 关于使用定位 position 居中的解释
+                    - 父元素 relative 子元素 absolute ==> 此时父元素是子元素的包含块，同时子元素脱离文档流
+                    - 子元素 top: 50%; left: 50%，再通过位移向 X、Y 轴的负方向移动自身的百分之五十 ==> 子元素在父元素中完成居中 */
+                position: relative;
+                overflow: hidden;
+
+                .canvas-wrapper {
+                    width: 400px;
+                    // height: 712px;
+                    height: calc(100% - 20px);
+                    background-color: #fff;
+                    /* 关于 box-shadow 的使用
+                        - box-shadow: h-shadow(阴影的水平位置) v-shadow(阴影的垂直位置) blur(模糊距离) spread(阴影的外延值) color(阴影的颜色) inset(将外部阴影变为内部阴影) 
+                        - h-shadow 和 v-shadow 都是必选的，其余是可选的。数值默认值为 0。*/
+                    box-shadow: 0 2px 10px #0000001f;
+
+                    /* 子元素绝对定位配合父元素的相对定位实现水平垂直居中 */
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
+
+                    /* 实现画布的 y 轴滚动 */
+                    overflow: auto;
+
+                    .canvas {
+                        height: 900px;
+                    }
+                }
+            }
+
+            /* 右侧属性&页面设置 */
+            .right {
+                width: 300px;
+                background-color: $componentBgColor;
+                padding: 0 12px;
+            }
+        }
+    }
+}
+/* 
+    flex: 1 Vs. flex: auto
+    - 初始尺寸
+        flex: 1; 的元素初始尺寸为 0%，意味着它会尽可能地扩展以填充容器。
+        flex: auto; 的元素初始尺寸基于内容的大小，意味着它会先考虑内容的自然尺寸，然后再考虑扩展或收缩。
+    - 行为
+        flex: 1; 的元素始终试图扩展以填满容器，而不管内容的实际大小。
+        flex: auto; 的元素首先尝试保持其内容的固有尺寸，然后根据需要扩展或收缩。*/
