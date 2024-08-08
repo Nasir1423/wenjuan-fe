@@ -2,6 +2,7 @@
   min-height: 100%;
   background-color: #fff;
   overflow: hidden; // 避免画布内容溢出
+  text-align: center; // 用于设置 Spin 的水平居中
 
   .component-wrapper {
     margin: 12px;

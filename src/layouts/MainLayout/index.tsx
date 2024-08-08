@@ -10,17 +10,16 @@ import useNavPage from '@/hooks/useNavPage';
 const { Header, Content, Footer } = Layout;
 
 const MainLayout: FC = () => {
-  const isUserDataLoaded = useEnsureUserData();
-  useNavPage(isUserDataLoaded);
+  const isUserDataLoading = useEnsureUserData();
+  console.log(isUserDataLoading);
+  useNavPage(isUserDataLoading);
   return (
     <Layout>
       <Header className={styles.header}>
         <Logo />
         <UserInfo />
       </Header>
-      <Content className={styles.content}>
-        {isUserDataLoaded ? <Spin></Spin> : <Outlet></Outlet>}
-      </Content>
+      <Content className={styles.content}>{isUserDataLoading ? <Spin /> : <Outlet />}</Content>
       <Footer className={styles.footer}>问卷星 &copy;2024 - present.</Footer>
     </Layout>
   );

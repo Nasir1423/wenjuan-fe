@@ -1,7 +1,7 @@
 import { getUserInfoService } from '@/service/user';
 import { loginReducer, UserStateType } from '@/store/user';
 import { useRequest } from 'ahooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useGetUserInfo from './useGetUserInfo';
 import { getToken } from '@/utils/userTokenStorage';
@@ -11,19 +11,35 @@ import { getToken } from '@/utils/userTokenStorage';
  */
 export default function useEnsureUserData() {
   const dispatch = useDispatch();
-  const { run: loadUserData, loading: isUserDataLoading } = useRequest(getUserInfoService, {
+  const { run: loadUserData, loading: isRequestLoading } = useRequest(getUserInfoService, {
     manual: true,
     onSuccess(res) {
       dispatch(loginReducer(res as UserStateType));
     },
   });
-  const { username } = useGetUserInfo(); // 从 Redux 中获取用户信息，根据是否存在决定是否请求用户数据
+
+  const { username } = useGetUserInfo();
+  const [isUserDataLoading, setIsUserDataLoading] = useState(true);
+
   useEffect(() => {
-    if (!getToken()) return;
+    if (!getToken()) {
+      setIsUserDataLoading(false); // 没有 token 时直接设置为不加载
+      return;
+    }
+
     if (!username) {
       loadUserData();
+    } else {
+      setIsUserDataLoading(false); // 已有用户信息时不加载
     }
   }, [loadUserData, username]);
+
+  useEffect(() => {
+    if (!isRequestLoading && username) {
+      setIsUserDataLoading(false); // 请求完成后更新加载状态
+    }
+  }, [isRequestLoading, username]);
+
   return isUserDataLoading;
 }
 

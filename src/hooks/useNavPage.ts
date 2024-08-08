@@ -25,11 +25,12 @@ export default function useNavPage(isUserDataLoading: boolean): void {
 
     if (username) {
       // 如果用户已认证且当前处于登录或注册页面，则重定向到管理列表页面
-      if ([LOGIN_PATHNAME, REGISTER_PATHNAME].includes(pathname)) nav(MANAGE_LIST_PATHNAME);
+      if ([LOGIN_PATHNAME, REGISTER_PATHNAME].includes(pathname))
+        nav(MANAGE_LIST_PATHNAME, { replace: true });
     } else {
       // 如果用户未认证且不在登录、注册或主页页面，则重定向到登录页面
       if (![LOGIN_PATHNAME, REGISTER_PATHNAME, HOME_PATHNAME].includes(pathname))
-        nav(LOGIN_PATHNAME);
+        nav(LOGIN_PATHNAME, { replace: true });
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

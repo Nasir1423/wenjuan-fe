@@ -3,9 +3,18 @@
 import { Typography, Input } from 'antd';
 import { FC } from 'react';
 
-export type PropsType = {
+/* 组件参数类型 */
+type PropsType = {
   text?: string;
   placeholder?: string;
+};
+
+/* 组件类型（每个组件的 title 和 type 都是唯一的） */
+export type QuestionInputType = {
+  fe_id: string;
+  title: '输入框';
+  type: 'questionInput';
+  props: PropsType;
 };
 
 const { Paragraph } = Typography;
