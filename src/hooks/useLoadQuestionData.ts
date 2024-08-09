@@ -33,7 +33,9 @@ function useLoadQuestionData() {
   useEffect(() => {
     if (!data) return;
     const { componentList = [] } = data;
-    dispatch(reset({ componentList }));
+    let selectedId = '';
+    componentList.length > 0 && (selectedId = componentList[0].fe_id); // 设置默认选中第一个组件
+    dispatch(reset({ componentList, selectedId }));
   }, [data, dispatch]);
 
   return { loading };

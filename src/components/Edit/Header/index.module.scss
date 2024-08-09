@@ -1,0 +1,29 @@
+.header-wrapper {
+  background-color: #fff;
+  padding: 4px 0;
+
+  .header {
+    margin: 0 24px;
+
+    display: flex;
+    justify-content: space-between;
+
+    .left {
+      flex: 1;
+      text-align: left;
+    }
+
+    .main {
+      flex: 1;
+      text-align: center;
+    }
+
+    .right {
+      flex: 1;
+      text-align: right;
+    }
+
+  }
+}
+
+/* flex: 1 ==> 让元素在父容器中尽可能多地占据可用空间 */

@@ -2,14 +2,14 @@
 import { FC } from 'react';
 import { Typography } from 'antd';
 
-/* 组件参数类型 */
-type PropsType = {
+// 定义组件的 props 类型
+export type PropsType = {
   text?: string;
   level?: 1 | 2 | 3 | 4 | 5;
   alignCenter?: boolean;
 };
 
-/* 组件类型（每个组件的 title 和 type 都是唯一的） */
+// 定义组件的数据结构类型
 export type QuestionTitleType = {
   fe_id: string;
   title: '标题';
@@ -19,8 +19,12 @@ export type QuestionTitleType = {
 
 const { Title } = Typography;
 
+/**
+ * 问卷标题组件
+ * @param props 包含字段 text, level, alignCenter
+ */
 const QuestionTitle: FC<PropsType> = (props: PropsType) => {
-  const { text = '问卷标题', level = 1, alignCenter = false } = props;
+  const { text = '一行标题', level = 1, alignCenter = false } = props;
   const getFontSize = (level: number) => {
     if (level === 1) return '24px';
     else if (level === 2) return '20px';
@@ -31,7 +35,8 @@ const QuestionTitle: FC<PropsType> = (props: PropsType) => {
       level={level}
       style={{
         textAlign: alignCenter ? 'center' : 'start',
-        marginBottom: '0px',
+        // marginBottom: '0px',
+        margin: '0px auto',
         fontSize: getFontSize(level),
       }}
     >

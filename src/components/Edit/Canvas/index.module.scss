@@ -18,4 +18,9 @@
       pointer-events: none; // 屏蔽鼠标行为，从而使得鼠标无法被点到
     }
   }
+
+  /* 用户选中组件时，组件所需要显示的样式 */
+  .selected {
+    border-color: #1890ff !important;
+  }
 }

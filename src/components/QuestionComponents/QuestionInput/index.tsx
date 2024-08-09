@@ -3,13 +3,13 @@
 import { Typography, Input } from 'antd';
 import { FC } from 'react';
 
-/* 组件参数类型 */
-type PropsType = {
+// 定义组件的 props 类型
+export type PropsType = {
   text?: string;
   placeholder?: string;
 };
 
-/* 组件类型（每个组件的 title 和 type 都是唯一的） */
+// 定义组件的数据结构类型
 export type QuestionInputType = {
   fe_id: string;
   title: '输入框';
@@ -19,6 +19,10 @@ export type QuestionInputType = {
 
 const { Paragraph } = Typography;
 
+/**
+ * 问卷输入组件
+ * @param props 包含字段 text、placeholder
+ */
 const QuestionInput: FC<PropsType> = (props: PropsType) => {
   const { text = '输入框标题', placeholder = '请输入...' } = props;
   return (
