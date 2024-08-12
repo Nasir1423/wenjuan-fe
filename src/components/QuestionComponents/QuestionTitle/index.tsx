@@ -14,6 +14,7 @@ export type QuestionTitleType = {
   fe_id: string;
   title: '标题';
   type: 'questionTitle';
+  isHidden: boolean;
   props: PropsType;
 };
 

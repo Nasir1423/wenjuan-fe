@@ -21,20 +21,22 @@ const Canvas: FC<PropsType> = (props: PropsType) => {
   };
 
   const renderLoading = <Spin style={{ marginTop: '30px' }} />;
-  const renderContent = componentList.map(component => {
-    const { fe_id } = component;
-    const wrapperDefaultClassName = styles['component-wrapper'];
-    const selectedClassName = styles.selected;
-    const wrapperClassName = classNames({
-      [wrapperDefaultClassName]: true,
-      [selectedClassName]: fe_id === selectedId,
+  const renderContent = componentList
+    .filter(component => !component.isHidden)
+    .map(component => {
+      const { fe_id } = component;
+      const wrapperDefaultClassName = styles['component-wrapper'];
+      const selectedClassName = styles.selected;
+      const wrapperClassName = classNames({
+        [wrapperDefaultClassName]: true,
+        [selectedClassName]: fe_id === selectedId,
+      });
+      return (
+        <div className={wrapperClassName} key={fe_id} onClick={event => handleClick(event, fe_id)}>
+          <div className={styles.component}>{getComponentByInfo(component)}</div>
+        </div>
+      );
     });
-    return (
-      <div className={wrapperClassName} key={fe_id} onClick={event => handleClick(event, fe_id)}>
-        <div className={styles.component}>{getComponentByInfo(component)}</div>
-      </div>
-    );
-  });
   return <div className={styles.canvas}>{loading ? renderLoading : renderContent}</div>;
 };
 

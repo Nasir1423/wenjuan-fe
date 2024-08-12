@@ -78,6 +78,7 @@ const DefaultQuestionTitleInfo: ComponentType = {
   fe_id: 'init',
   title: '标题',
   type: 'questionTitle',
+  isHidden: false,
   props: {
     text: '一行标题',
     level: 1,
@@ -89,6 +90,7 @@ const DefaultQuestionInputInfo: ComponentType = {
   fe_id: 'init',
   title: '输入框',
   type: 'questionInput',
+  isHidden: false,
   props: {
     text: '输入框标题',
     placeholder: '请输入...',

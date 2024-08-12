@@ -3,6 +3,7 @@ import styles from './index.module.scss';
 import { Button, Space, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import ToolBar from './ToolBar';
 
 const { Title } = Typography;
 
@@ -19,10 +20,14 @@ const Header: FC = () => {
             <Title style={{ fontSize: '18px', lineHeight: '1', margin: '0' }}>问卷标题</Title>
           </Space>
         </div>
-        <div className={styles.main}>Main</div>
+        <div className={styles.main}>
+          <ToolBar />
+        </div>
         <div className={styles.right}>
-          <Button type="primary">保存</Button>
-          <Button>发布</Button>
+          <Space>
+            <Button type="primary">保存</Button>
+            <Button>发布</Button>
+          </Space>
         </div>
       </div>
     </div>

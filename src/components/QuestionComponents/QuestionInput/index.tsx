@@ -14,6 +14,7 @@ export type QuestionInputType = {
   fe_id: string;
   title: '输入框';
   type: 'questionInput';
+  isHidden: boolean;
   props: PropsType;
 };
 
