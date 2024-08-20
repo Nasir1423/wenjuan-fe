@@ -8,10 +8,12 @@ import { changeSelectedId } from '@/store/components';
 import LeftPanel from '@/components/Edit/LeftPanel';
 import RightPanel from '@/components/Edit/RightPanel';
 import Header from '@/components/Edit/Header';
+import useBindCanvasKeyPress from '@/hooks/useBindCanvasKeyPress';
 
 const Edit: FC = () => {
   useTitle('问卷星 - 编辑问卷');
-  const { loading } = useLoadQuestionData();
+  const { loading } = useLoadQuestionData(); // 加载问卷数据
+  useBindCanvasKeyPress(); // 引入快捷操作
   const dispatch = useDispatch();
   const clearSelectedId = () => {
     dispatch(changeSelectedId(''));

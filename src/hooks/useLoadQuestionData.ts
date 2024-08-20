@@ -35,7 +35,7 @@ function useLoadQuestionData() {
     const { componentList = [] } = data;
     let selectedId = '';
     componentList.length > 0 && (selectedId = componentList[0].fe_id); // 设置默认选中第一个组件
-    dispatch(reset({ componentList, selectedId }));
+    dispatch(reset({ componentList, selectedId, copiedComponent: null }));
   }, [data, dispatch]);
 
   return { loading };

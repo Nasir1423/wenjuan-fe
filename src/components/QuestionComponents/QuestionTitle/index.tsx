@@ -7,6 +7,8 @@ export type PropsType = {
   text?: string;
   level?: 1 | 2 | 3 | 4 | 5;
   alignCenter?: boolean;
+
+  disabled: boolean;
 };
 
 // 定义组件的数据结构类型
@@ -15,6 +17,7 @@ export type QuestionTitleType = {
   title: '标题';
   type: 'questionTitle';
   isHidden: boolean;
+  isLocked: boolean;
   props: PropsType;
 };
 

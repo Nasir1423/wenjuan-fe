@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { updateSelectedComponent } from '@/store/components';
 
 const InputPropComponent: FC<PropsType> = (props: PropsType) => {
-  const { text = '输入框标题', placeholder = '请输入' } = props;
+  const { text = '输入框标题', placeholder = '请输入', disabled = false } = props;
   const [form] = Form.useForm();
   const disptach = useDispatch();
 
@@ -17,7 +17,7 @@ const InputPropComponent: FC<PropsType> = (props: PropsType) => {
   /* 双向数据绑定1-form=>component (只要 form 字段变化，就更新当前选中 id 的 components 状态的 componentList 中对应组件信息的数据) */
   const handleChange = (_changedValues: any, allValues: { title: any; placeholder: any }) => {
     const { title, placeholder } = allValues;
-    const newProps: PropsType = { text: title, placeholder };
+    const newProps: PropsType = { text: title, placeholder, disabled: false };
     disptach(updateSelectedComponent(newProps));
   };
 
@@ -27,6 +27,7 @@ const InputPropComponent: FC<PropsType> = (props: PropsType) => {
       initialValues={{ title: text, placeholder }}
       layout="vertical"
       onValuesChange={handleChange}
+      disabled={disabled}
     >
       <Form.Item label="标题" name="title" rules={[{ required: true, message: '标题是必填项~' }]}>
         <Input />

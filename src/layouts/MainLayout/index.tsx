@@ -11,7 +11,6 @@ const { Header, Content, Footer } = Layout;
 
 const MainLayout: FC = () => {
   const isUserDataLoading = useEnsureUserData();
-  console.log(isUserDataLoading);
   useNavPage(isUserDataLoading);
   return (
     <Layout>

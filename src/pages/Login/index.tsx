@@ -43,7 +43,7 @@ const Register: FC = () => {
         nav(MANAGE_LIST_PATHNAME);
         const { token } = res;
         setToken(token);
-        console.log(params);
+        // console.log(params);
         dispatch(loginReducer({ username: params[0].username, nickname: '' }));
       },
     }

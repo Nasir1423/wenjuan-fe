@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { PropsType } from '..';
 
 const TitlePropComponent: FC<PropsType> = (props: PropsType) => {
-  const { text = '一行标题', level = 1, alignCenter = false } = props;
+  const { text = '一行标题', level = 1, alignCenter = false, disabled = false } = props;
   const [form] = Form.useForm();
   const disptach = useDispatch();
 
@@ -17,7 +17,7 @@ const TitlePropComponent: FC<PropsType> = (props: PropsType) => {
   /* 双向数据绑定1-form=>component (只要 form 字段变化，就更新当前选中 id 的 components 状态的 componentList 中对应组件信息的数据) */
   const handleChange = (_changedValues: any, allValues: any) => {
     const { text, level, isCenter } = allValues;
-    const newProps: PropsType = { text, level, alignCenter: isCenter };
+    const newProps: PropsType = { text, level, alignCenter: isCenter, disabled: false };
     disptach(updateSelectedComponent(newProps));
   };
 
@@ -27,6 +27,7 @@ const TitlePropComponent: FC<PropsType> = (props: PropsType) => {
       initialValues={{ text, level, alignCenter }}
       layout="vertical"
       onValuesChange={handleChange}
+      disabled={disabled}
     >
       <Form.Item
         label="标题内容"

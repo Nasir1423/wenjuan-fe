@@ -7,18 +7,26 @@ import QuestionInput, {
   QuestionInputType,
   PropsType as QuestionInputPropsType,
 } from './QuestionInput';
+import QuestionParagraph, {
+  QuestionParagraphType,
+  PropsType as QuestionParagraphPropsType,
+} from './QuestionParagraph';
 import TitlePropComponent from './QuestionTitle/TitlePropComponent';
 import InputPropComponent from './QuestionInput/InputPropComponent';
+import ParagraphPropComponent from './QuestionParagraph/ParagraphPropComponent';
 
 /**
  * 组件信息的联合类型，用于描述不同类型的组件。
  */
-export type ComponentType = QuestionTitleType | QuestionInputType;
+export type ComponentType = QuestionTitleType | QuestionInputType | QuestionParagraphType;
 
 /**
  * 组件所需参数的联合类型
  */
-export type PropsType = QuestionTitlePropsType | QuestionInputPropsType;
+export type PropsType =
+  | QuestionTitlePropsType
+  | QuestionInputPropsType
+  | QuestionParagraphPropsType;
 
 // ----------------------------------------------------------------
 
@@ -28,6 +36,7 @@ export type PropsType = QuestionTitlePropsType | QuestionInputPropsType;
 const COMPONENT_TYPES = {
   TITLE: 'questionTitle',
   INPUT: 'questionInput',
+  PARAGRAPH: 'questionParagraph',
 };
 
 /**
@@ -43,6 +52,8 @@ export const getComponentByInfo = (props: ComponentType) => {
       return <QuestionTitle {...componentProps} />;
     case COMPONENT_TYPES.INPUT:
       return <QuestionInput {...componentProps} />;
+    case COMPONENT_TYPES.PARAGRAPH:
+      return <QuestionParagraph {...componentProps} />;
     default:
       return <h1 style={{ color: 'red' }}>未知的组件类型</h1>;
   }
@@ -54,13 +65,15 @@ export const getComponentByInfo = (props: ComponentType) => {
  * @returns 对应的 React 组件对应的属性组件
  */
 export const getPropComponentByInfo = (props: ComponentType) => {
-  const { type, props: componentProps } = props;
+  const { type, props: componentProps, isLocked } = props;
 
   switch (type) {
     case COMPONENT_TYPES.TITLE:
-      return <TitlePropComponent {...componentProps} />;
+      return <TitlePropComponent {...componentProps} disabled={isLocked} />;
     case COMPONENT_TYPES.INPUT:
-      return <InputPropComponent {...componentProps} />;
+      return <InputPropComponent {...componentProps} disabled={isLocked} />;
+    case COMPONENT_TYPES.PARAGRAPH:
+      return <ParagraphPropComponent {...componentProps} disabled={isLocked} />;
     default:
       return <h1 style={{ color: 'red' }}>未知的属性组件类型</h1>;
   }
@@ -79,10 +92,12 @@ const DefaultQuestionTitleInfo: ComponentType = {
   title: '标题',
   type: 'questionTitle',
   isHidden: false,
+  isLocked: false,
   props: {
     text: '一行标题',
     level: 1,
     alignCenter: false,
+    disabled: false,
   },
 };
 
@@ -91,9 +106,24 @@ const DefaultQuestionInputInfo: ComponentType = {
   title: '输入框',
   type: 'questionInput',
   isHidden: false,
+  isLocked: false,
   props: {
     text: '输入框标题',
     placeholder: '请输入...',
+    disabled: false,
+  },
+};
+
+const DefaultQuestionParagraphInfo: ComponentType = {
+  fe_id: 'init',
+  title: '段落',
+  type: 'questionParagraph',
+  isHidden: false,
+  isLocked: false,
+  props: {
+    text: '一行段落',
+    isCenter: false,
+    disabled: false,
   },
 };
 
@@ -104,7 +134,7 @@ export const componentGroup: GroupElementType[] = [
   {
     groupId: 'text',
     groupName: '文本显示',
-    components: [DefaultQuestionTitleInfo],
+    components: [DefaultQuestionTitleInfo, DefaultQuestionParagraphInfo],
   },
   {
     groupId: 'input',

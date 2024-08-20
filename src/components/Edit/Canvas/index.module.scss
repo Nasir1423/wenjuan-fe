@@ -23,4 +23,10 @@
   .selected {
     border-color: #1890ff !important;
   }
+
+  /* 用户锁定组件时，组件所需要显示的样式表 */
+  .locked {
+    opacity: .5;
+    cursor: not-allowed;
+  }
 }

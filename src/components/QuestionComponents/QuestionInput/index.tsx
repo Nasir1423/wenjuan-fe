@@ -7,6 +7,8 @@ import { FC } from 'react';
 export type PropsType = {
   text?: string;
   placeholder?: string;
+
+  disabled: boolean;
 };
 
 // 定义组件的数据结构类型
@@ -15,6 +17,7 @@ export type QuestionInputType = {
   title: '输入框';
   type: 'questionInput';
   isHidden: boolean;
+  isLocked: boolean;
   props: PropsType;
 };
 

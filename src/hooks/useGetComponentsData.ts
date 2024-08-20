@@ -7,6 +7,7 @@ type ResType = {
   selectedId: string;
   componentList: ComponentType[];
   selectedComponent: ComponentType | undefined;
+  copiedComponent: ComponentType | null;
 };
 
 /**
@@ -14,9 +15,11 @@ type ResType = {
  * @returns {ComponentsStateType} 当前问卷的所有组件信息构成的数组
  */
 export default function useGetComponentsData(): ResType {
-  const { componentList, selectedId } = useSelector<StateType>(
-    state => state.components
-  ) as ComponentsStateType;
+  const {
+    componentList,
+    selectedId,
+    copiedComponent = null,
+  } = useSelector<StateType>(state => state.components) as ComponentsStateType;
   const selectedComponent = componentList.find(component => component.fe_id === selectedId);
-  return { componentList, selectedId, selectedComponent };
+  return { componentList, selectedId, selectedComponent, copiedComponent };
 }
