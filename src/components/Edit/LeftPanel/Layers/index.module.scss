@@ -1,0 +1,40 @@
+.wrapper {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+
+  /* 标题 */
+  .title {
+    flex: auto;
+    line-height: 2; // 无单位的值，是基于元素的字体大小的倍数
+    cursor: pointer;
+  }
+
+  /* 标题 - 选中 */
+  .selected {
+    color: #1890ff;
+  }
+
+  /* 按钮 */
+  .handler {
+    width: 50px;
+    text-align: end;
+
+    .btn {
+      opacity: .2;
+    }
+  }
+
+  /* 按钮 - 整体被选中 */
+  &:hover {
+    .handler {
+      .btn {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/* flex: auto VS， flex: 1
+  - flex: auto 会考虑元素的内容或设置的宽高来确定初始尺寸，而 flex: 1 则会忽略初始内容，直接从 0 开始。
+  - flex: auto 更适合希望元素根据内容自动调整大小的情况，而 flex: 1 更适合元素按比例平分剩余空间的情况，不考虑内容的大小。 */

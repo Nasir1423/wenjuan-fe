@@ -1,29 +1,38 @@
 import { FileTextOutlined, SettingOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Prop from './Prop';
 import Setting from './Setting';
+import useGetComponentsData from '@/hooks/useGetComponentsData';
+
+enum TAB_KEYS {
+  PROP_KEY = 'prop',
+  SETTING_KEY = 'setting',
+}
 
 const RightPanel: FC = () => {
-  /* const items = [AppstoreOutlined, BarsOutlined].map((Icon, index) => {
-    const id = String(index + 1);
-    
-  }); */
+  const [activeKey, setActiveKey] = useState(TAB_KEYS.PROP_KEY);
+  const { selectedId } = useGetComponentsData();
+
+  useEffect(() => {
+    selectedId ? setActiveKey(TAB_KEYS.PROP_KEY) : setActiveKey(TAB_KEYS.SETTING_KEY);
+  }, [selectedId]);
+
   const tabItems = [
     {
-      key: 'prop',
+      key: TAB_KEYS.PROP_KEY,
       label: '属性',
       children: <Prop />,
       icon: <FileTextOutlined />,
     },
     {
-      key: 'setting',
+      key: TAB_KEYS.SETTING_KEY,
       label: '页面设置',
       children: <Setting />,
       icon: <SettingOutlined />,
     },
   ];
-  return <Tabs defaultActiveKey="prop" items={tabItems} />;
+  return <Tabs activeKey={activeKey} items={tabItems} />;
 };
 
 export default RightPanel;

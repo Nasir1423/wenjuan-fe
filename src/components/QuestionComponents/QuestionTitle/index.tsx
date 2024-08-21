@@ -14,7 +14,7 @@ export type PropsType = {
 // 定义组件的数据结构类型
 export type QuestionTitleType = {
   fe_id: string;
-  title: '标题';
+  title: '标题' | string;
   type: 'questionTitle';
   isHidden: boolean;
   isLocked: boolean;

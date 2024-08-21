@@ -127,27 +127,35 @@ const componentsSlice = createSlice({
         const { isHidden, id } = action.payload;
         let newSelectedId = '';
 
-        let filteredComponentList = componentList.filter(component => !component.isHidden);
-
+        // Step1. 计算新的 selectedId
+        // 未修改 isHidden 前的所有可见的组件构成的列表
+        const filteredComponentList = componentList.filter(component => !component.isHidden);
         const index = filteredComponentList.findIndex(component => component.fe_id === id);
-        if (index === -1) return draft;
-
-        // 隐藏/显示指定 id 组件
-        filteredComponentList[index].isHidden = isHidden;
 
         // 如果隐藏，则默认选中被隐藏的组件的下一个组件；如果显示，则默认显示该组件
         if (isHidden) {
-          filteredComponentList = filteredComponentList.filter(component => !component.isHidden);
-          if (filteredComponentList.length <= 0) newSelectedId = '';
-          else if (filteredComponentList.length === index)
-            newSelectedId = filteredComponentList[filteredComponentList.length - 1].fe_id;
-          else newSelectedId = filteredComponentList[index].fe_id;
+          if (filteredComponentList.length <= 0) {
+            /* 如果所有组件都被隐藏，则不应该有选中的组件 */
+            newSelectedId = '';
+          } else if (filteredComponentList.length === index + 1) {
+            /* 如果要被隐藏的组件是当前显示的组件中的最后一个组件，则应该选中倒数第二个组件 */
+            newSelectedId = filteredComponentList[filteredComponentList.length - 2].fe_id;
+          } else {
+            /* 如果要被隐藏的组件是当前显示的组件的非最后一个组件，则应该选中其后边的相邻组件 */
+            newSelectedId = filteredComponentList[index + 1].fe_id;
+          }
         } else {
           newSelectedId = id;
         }
 
-        // 更新 isHidden 后，要选中的新的组件的 selectedId（注意要过滤被隐藏的数据数据）
+        // 更新 isHidden 后，要选中的新的组件的 selectedId
         draft.selectedId = newSelectedId;
+
+        // Step2. 更新指定组件的 isHidden
+        const component = componentList.find(component => component.fe_id === id);
+        if (!component) return draft;
+        // 隐藏/显示指定 id 组件
+        component.isHidden = isHidden;
       }
     ),
     /**
@@ -216,6 +224,16 @@ const componentsSlice = createSlice({
         }
       }
     ),
+    /* 修改 components 状态的 componentList 中 fe_id = id 的组件的 title 属性 */
+    changeComponentTitle: produce(
+      (draft: ComponentsStateType, action: PayloadAction<{ id: string; newTitle: string }>) => {
+        const { componentList } = draft;
+        const { id, newTitle } = action.payload;
+
+        const index = componentList.findIndex(component => component.fe_id === id);
+        if (index !== -1) componentList[index].title = newTitle;
+      }
+    ),
   },
 });
 
@@ -231,6 +249,7 @@ export const {
   copySelectedComponent,
   pasteCopiedComponent,
   selectAdjacentComponent,
+  changeComponentTitle,
 } = componentsSlice.actions;
 
 /* 导出 reducer */

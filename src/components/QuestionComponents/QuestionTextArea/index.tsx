@@ -14,7 +14,7 @@ export type PropsType = {
 // 定义组件的数据结构类型
 export type QuestionTextAreaType = {
   fe_id: string;
-  title: '多行输入';
+  title: '多行输入' | string;
   type: 'questionTextArea';
   isHidden: boolean;
   isLocked: boolean;

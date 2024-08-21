@@ -17,7 +17,7 @@ export type PropsType = {
 
 export type QuestionRadioType = {
   fe_id: string;
-  title: '问卷单选框';
+  title: '问卷单选框' | string;
   type: 'questionRadio';
   isHidden: boolean;
   isLocked: boolean;

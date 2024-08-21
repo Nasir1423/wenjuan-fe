@@ -17,7 +17,7 @@ export type PropsType = {
 
 export type QuestionCheckboxType = {
   fe_id: string;
-  title: '问卷多选框';
+  title: '问卷多选框' | string;
   type: 'questionCheckbox';
   isHidden: boolean;
   isLocked: boolean;

@@ -14,7 +14,7 @@ export type PropsType = {
 // 定义组件的数据结构类型
 export type QuestionInputType = {
   fe_id: string;
-  title: '输入框';
+  title: '输入框' | string;
   type: 'questionInput';
   isHidden: boolean;
   isLocked: boolean;

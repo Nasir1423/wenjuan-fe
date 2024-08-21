@@ -10,7 +10,7 @@ export type PropsType = {
 
 export type QuestionInfoType = {
   fe_id: string;
-  title: '问卷标题';
+  title: '问卷标题' | string;
   type: 'questionInfo';
   isHidden: boolean;
   isLocked: boolean;

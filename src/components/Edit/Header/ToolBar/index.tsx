@@ -54,7 +54,8 @@ const ToolBar: FC = () => {
           shape="circle"
           icon={<LockOutlined />}
           onClick={handleLock}
-          style={{ backgroundColor: isLocked ? '#1677ff' : 'transparent' }}
+          type={isLocked ? 'primary' : 'default'}
+          // style={{ backgroundColor: isLocked ? '#1677ff' : 'transparent' }}
         />
       </Tooltip>
       <Tooltip title="复制">
