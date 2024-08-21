@@ -5,38 +5,39 @@ import { FC } from 'react';
 
 // 定义组件的 props 类型
 export type PropsType = {
+  title?: string;
   text?: string;
-  placeholder?: string;
 
   disabled?: boolean;
 };
 
 // 定义组件的数据结构类型
-export type QuestionInputType = {
+export type QuestionTextAreaType = {
   fe_id: string;
-  title: '输入框';
-  type: 'questionInput';
+  title: '多行输入';
+  type: 'questionTextArea';
   isHidden: boolean;
   isLocked: boolean;
   props: PropsType;
 };
 
 const { Paragraph } = Typography;
+const { TextArea } = Input;
 
 /**
  * 问卷输入组件
  * @param props 包含字段 text、placeholder
  */
-const QuestionInput: FC<PropsType> = (props: PropsType) => {
-  const { text = '输入框标题', placeholder = '请输入...' } = props;
+const QuestionTextArea: FC<PropsType> = (props: PropsType) => {
+  const { title = '多行输入', text = '请输入内容' } = props;
   return (
     <>
-      <Paragraph strong>{text}</Paragraph>
+      <Paragraph strong>{title}</Paragraph>
       <div>
-        <Input placeholder={placeholder}></Input>
+        <TextArea placeholder={text} />
       </div>
     </>
   );
 };
 
-export default QuestionInput;
+export default QuestionTextArea;

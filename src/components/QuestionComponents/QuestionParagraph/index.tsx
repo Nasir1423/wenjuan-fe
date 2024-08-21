@@ -8,7 +8,7 @@ export type PropsType = {
   text?: string;
   isCenter?: boolean;
 
-  disabled: boolean;
+  disabled?: boolean;
 };
 
 // 定义组件的数据结构类型

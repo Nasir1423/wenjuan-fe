@@ -8,7 +8,7 @@ export type PropsType = {
   level?: 1 | 2 | 3 | 4 | 5;
   alignCenter?: boolean;
 
-  disabled: boolean;
+  disabled?: boolean;
 };
 
 // 定义组件的数据结构类型
