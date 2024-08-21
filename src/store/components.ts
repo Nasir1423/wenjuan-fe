@@ -4,6 +4,7 @@ import { produce } from 'immer';
 import { PropsType } from '@/components/QuestionComponents';
 import { message } from 'antd';
 import { cloneDeep } from 'lodash';
+import { arrayMove } from '@dnd-kit/sortable';
 
 export type ComponentsStateType = {
   selectedId: string;
@@ -234,6 +235,18 @@ const componentsSlice = createSlice({
         if (index !== -1) componentList[index].title = newTitle;
       }
     ),
+    /* 交换 components 状态的 componentList 中两个指定 index 组件的位置 */
+    swapComponentPosition: produce(
+      (
+        draft: ComponentsStateType,
+        action: PayloadAction<{ oldIndex: number; newIndex: number }>
+      ) => {
+        const { componentList } = draft;
+        const { oldIndex, newIndex } = action.payload;
+
+        draft.componentList = arrayMove(componentList, oldIndex, newIndex);
+      }
+    ),
   },
 });
 
@@ -250,6 +263,7 @@ export const {
   pasteCopiedComponent,
   selectAdjacentComponent,
   changeComponentTitle,
+  swapComponentPosition,
 } = componentsSlice.actions;
 
 /* 导出 reducer */
