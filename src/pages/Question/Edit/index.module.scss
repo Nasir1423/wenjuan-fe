@@ -25,6 +25,8 @@ $componentBgColor: #fff;
         padding: 12px 0;
         /* margin 设置两个值与 padding 同义 */
         margin: 0 24px;
+        
+        overflow: hidden;
 
         .content {
             height: 100%;
@@ -32,6 +34,7 @@ $componentBgColor: #fff;
 
             /* 左侧组件库&图层 */
             .left {
+                overflow: auto;
                 // width: 285px;
                 width: 295px;
                 background-color: $componentBgColor;

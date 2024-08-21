@@ -42,7 +42,7 @@ function useLoadQuestionData() {
     dispatch(resetPageInfo({ title, desc, js, css }));
   }, [data, dispatch]);
 
-  return { loading };
+  return { loading, data };
 }
 
 export default useLoadQuestionData;
