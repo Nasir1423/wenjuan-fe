@@ -8,6 +8,8 @@ type ResType = {
   componentList: ComponentType[];
   selectedComponent: ComponentType | undefined;
   copiedComponent: ComponentType | null;
+  pastLength: number;
+  futureLength: number;
 };
 
 /**
@@ -19,7 +21,16 @@ export default function useGetComponentsData(): ResType {
     componentList,
     selectedId,
     copiedComponent = null,
-  } = useSelector<StateType>(state => state.components) as ComponentsStateType;
+  } = useSelector<StateType>(state => state.components.present) as ComponentsStateType;
+  const pastLength = useSelector<StateType>(state => state.components.past.length) as number;
+  const futureLength = useSelector<StateType>(state => state.components.future.length) as number;
   const selectedComponent = componentList.find(component => component.fe_id === selectedId);
-  return { componentList, selectedId, selectedComponent, copiedComponent };
+  return {
+    componentList,
+    selectedId,
+    selectedComponent,
+    copiedComponent,
+    pastLength,
+    futureLength,
+  };
 }

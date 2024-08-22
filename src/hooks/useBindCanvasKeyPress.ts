@@ -6,6 +6,7 @@ import {
 } from '@/store/components';
 import { useKeyPress } from 'ahooks';
 import { useDispatch } from 'react-redux';
+import { ActionCreators } from 'redux-undo';
 
 /**
  * @description 画布页面的快捷键操作绑定
@@ -32,6 +33,14 @@ function useBindCanvasKeyPress() {
   // downarrow 选中下一个组件
   useKeyPress(['downarrow'], () => {
     isActionPermitted() && dispatch(selectAdjacentComponent({ direction: 'down' }));
+  });
+  // 撤销
+  useKeyPress(['ctrl.z', 'meta.z'], () => {
+    isActionPermitted() && dispatch(ActionCreators.undo());
+  });
+  // 重做
+  useKeyPress(['ctrl.y', 'meta.y'], () => {
+    isActionPermitted() && dispatch(ActionCreators.redo());
   });
 }
 
