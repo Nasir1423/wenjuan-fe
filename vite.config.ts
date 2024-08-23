@@ -20,5 +20,6 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    port: 8000, // 项目启动时的端口号
   },
 });

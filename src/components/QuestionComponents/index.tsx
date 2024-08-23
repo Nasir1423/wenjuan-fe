@@ -1,4 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
+// 组件、组件类型、组件 props 类型
 import QuestionTitle, {
   QuestionTitleType,
   PropsType as QuestionTitlePropsType,
@@ -25,6 +26,7 @@ import QuestionCheckbox, {
   PropsType as QuestionCheckboxPropsType,
 } from './QuestionCheckbox';
 
+// 属性组件
 import TitlePropComponent from './QuestionTitle/TitlePropComponent';
 import InputPropComponent from './QuestionInput/InputPropComponent';
 import ParagraphPropComponent from './QuestionParagraph/ParagraphPropComponent';
@@ -33,8 +35,16 @@ import TextAreaPropComponent from './QuestionTextArea/TextAreaPropComponent';
 import RadioPropComponent from './QuestionRadio/RadioPropComponent';
 import CheckboxPropComponent from './QuestionCheckbox/CheckboxPropComponent';
 
+// 统计组件、统计组件类型
+import CheckboxStatComponent, {
+  PropsType as CheckboxStatPropsType,
+} from './QuestionCheckbox/CheckboxStatComponent';
+import RadioStatComponent, {
+  PropsType as RadioStatPropsType,
+} from './QuestionRadio/RadioStatComponent';
+
 /**
- * 组件信息的联合类型，用于描述不同类型的组件。
+ * 组件的联合类型，用于描述不同类型的组件。
  */
 export type ComponentType =
   | QuestionTitleType
@@ -56,6 +66,11 @@ export type PropsType =
   | QuestionTextAreaPropsType
   | QuestionRadioPropsType
   | QuestionCheckboxPropsType;
+
+/**
+ * 统计组件所需参数的联合类型
+ */
+export type StatComponentPropsType = CheckboxStatPropsType | RadioStatPropsType;
 
 // ----------------------------------------------------------------
 
@@ -125,6 +140,21 @@ export const getPropComponentByInfo = (props: ComponentType) => {
       return <CheckboxPropComponent {...componentProps} />;
     default:
       return <h1 style={{ color: 'red' }}>未知的属性组件类型</h1>;
+  }
+};
+
+/**
+ * 根据传入的组件类型，返回对应的统计组件
+ */
+export const getStateComponentByType = (props: StatComponentPropsType & { type: string }) => {
+  const { type, stat } = props;
+  switch (type) {
+    case COMPONENT_TYPES.CHECKBOX:
+      return <CheckboxStatComponent stat={stat} />;
+    case COMPONENT_TYPES.RADIO:
+      return <RadioStatComponent stat={stat} />;
+    default:
+      return <div>该组件没有统计图表</div>;
   }
 };
 

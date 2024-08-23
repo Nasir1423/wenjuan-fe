@@ -15,9 +15,9 @@ const { Title } = Typography;
 const { confirm } = Modal;
 interface TableElemProps {
   source: Question[];
-  refreash: () => void;
+  refresh: () => void;
 }
-const TableElem: FC<TableElemProps> = ({ source, refreash }) => {
+const TableElem: FC<TableElemProps> = ({ source, refresh }) => {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const columns: TableColumnsType<Question> = [
     {
@@ -58,7 +58,7 @@ const TableElem: FC<TableElemProps> = ({ source, refreash }) => {
       debounceWait: 500,
       onSuccess() {
         message.success('恢复成功');
-        refreash(); // 刷新，用于重新获取数据
+        refresh(); // 刷新，用于重新获取数据
         setSelectedIds([]);
       },
     }
@@ -83,7 +83,7 @@ const TableElem: FC<TableElemProps> = ({ source, refreash }) => {
     debounceWait: 500,
     onSuccess() {
       message.success('所选问卷已彻底删除');
-      refreash(); // 刷新，用于重新获取数据
+      refresh(); // 刷新，用于重新获取数据
       setSelectedIds([]);
     },
   });
@@ -164,7 +164,7 @@ const Trash: FC = () => {
             {questionList.length <= 0 ? (
               <Empty description="暂无数据" />
             ) : (
-              <TableElem source={questionList} refreash={refresh} />
+              <TableElem source={questionList} refresh={refresh} />
             )}
           </div>
           <div className={styles.footer}>

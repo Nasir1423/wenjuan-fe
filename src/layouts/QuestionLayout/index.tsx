@@ -9,8 +9,8 @@ const QuestionLayout: FC = () => {
   useNavPage(isUserDataLoaded);
   return (
     /* 这样设置 height，是为了抵消 body 自带的 margin: 8px，从而避免页面整体出现滚动 */
-    <div style={{ height: `calc(100vh - 16px)` }}>
-      {isUserDataLoaded ? <Spin></Spin> : <Outlet />}
+    <div style={{ height: `calc(100vh - 16px)`, textAlign: 'center' }}>
+      {isUserDataLoaded ? <Spin style={{ marginTop: '50px' }}></Spin> : <Outlet />}
     </div>
   );
 };

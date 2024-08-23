@@ -35,7 +35,8 @@ const Edit: FC = () => {
           {/* 中间（画布） */}
           <div className={styles.main} onClick={clearSelectedId}>
             <div className={styles['canvas-wrapper']}>
-              <div className={styles.canvas}>
+              {/* <div className={styles.canvas}> */}
+              <div>
                 <EditCanvas loading={loading} />
               </div>
             </div>

@@ -1,0 +1,26 @@
+.canvas {
+  min-height: 100%;
+  background-color: #fff;
+  overflow: hidden; // 避免画布内容溢出
+
+  .componentWrapper {
+    margin: 12px;
+    border: 1px solid #fff;
+    padding: 12px;
+    border-radius: 3px;
+
+    &:hover {
+      border-color: #d9d9d9;
+    }
+
+    .component {
+      pointer-events: none; // 屏蔽鼠标行为，从而使得鼠标无法被点到
+      opacity: .8;
+    }
+  }
+
+  /* 用户选中组件时，组件所需要显示的样式 */
+  .selected {
+    border-color: #1890ff !important;
+  }
+}
