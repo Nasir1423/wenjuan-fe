@@ -14,15 +14,15 @@ export default defineConfig({
       '@layouts': resolve(__dirname, './src/layouts'),
     },
   },
-  server: {
+  /* server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://wenjuan-mock-git-main-nasir1423s-projects.vercel.app:80',
         changeOrigin: true,
+        secure: false,
       },
     },
-    port: 8000, // 项目启动时的端口号
-  },
+  }, */
   build: {
     rollupOptions: {
       output: {

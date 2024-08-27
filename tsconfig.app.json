@@ -42,6 +42,7 @@
     }
   },
   "include": [
-    "src"
-, "setupTests.ts"  ]
+    "src",
+    "setupTests.ts"
+  ]
 }

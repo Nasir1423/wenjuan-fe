@@ -4,6 +4,7 @@ import { message } from 'antd';
 import { getToken } from '@/utils/userTokenStorage';
 
 const instance = axios.create({
+  baseURL: 'https://wenjuan-mock-git-main-nasir1423s-projects.vercel.app',
   timeout: 1000 * 10, // 指定请求超时的毫秒数（10000 毫秒，即 10 秒）
 });
 
