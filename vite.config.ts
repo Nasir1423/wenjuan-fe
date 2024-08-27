@@ -14,6 +14,7 @@ export default defineConfig({
       '@layouts': resolve(__dirname, './src/layouts'),
     },
   },
+  /* 为什么禁止代理？ */
   /* server: {
     proxy: {
       '/api': {
@@ -23,24 +24,25 @@ export default defineConfig({
       },
     },
   }, */
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          // 1. 优先级最高：将 antd 相关的代码打包到 antd-chunk
-          if (id.includes('/antd/')) {
-            return 'antd-chunk';
-          }
-          // 2. 次高优先级：将 react-dom 相关的代码打包到 reactDom
-          if (id.includes('/react-dom/')) {
-            return 'reactDom';
-          }
-          // 3. 最低优先级：将所有其他 node_modules 相关的代码打包到 vendors-chunk
-          if (id.includes('/node_modules/')) {
-            return 'vendors-chunk';
-          }
-        },
-      },
-    },
-  },
+  /* 为什么禁止分块？ */
+  // build: {
+  //   rollupOptions: {
+  //     output: {
+  //       manualChunks(id) {
+  //         // 1. 优先级最高：将 antd 相关的代码打包到 antd-chunk
+  //         if (id.includes('/antd/')) {
+  //           return 'antd-chunk';
+  //         }
+  //         // 2. 次高优先级：将 react-dom 相关的代码打包到 reactDom
+  //         if (id.includes('/react-dom/')) {
+  //           return 'reactDom';
+  //         }
+  //         // 3. 最低优先级：将所有其他 node_modules 相关的代码打包到 vendors-chunk
+  //         if (id.includes('/node_modules/')) {
+  //           return 'vendors-chunk';
+  //         }
+  //       },
+  //     },
+  //   },
+  // },
 });
