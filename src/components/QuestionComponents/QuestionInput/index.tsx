@@ -1,7 +1,7 @@
 /* https://ant.design/components/typography-cn */
 /* https://ant.design/components/input-cn */
 import { Typography, Input } from 'antd';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 // 定义组件的 props 类型
 export type PropsType = {

@@ -1,5 +1,5 @@
 import { Checkbox, Space, Typography } from 'antd';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 export type OptionType = {
   value: string;
@@ -27,7 +27,7 @@ export type QuestionCheckboxType = {
 const { Paragraph } = Typography;
 
 const QuestionCheckbox: FC<PropsType> = (props: PropsType) => {
-  const { title = '问卷单选', isVertical = false, list = [] } = props;
+  const { title = '问卷多选', isVertical = false, list = [] } = props;
   return (
     <div>
       <Paragraph strong>{title}</Paragraph>

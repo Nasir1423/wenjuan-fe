@@ -14,7 +14,7 @@ $componentBgColor: #fff;
         background-color: $componentBgColor;
     }
 
-    .content-wrapper {
+    .contentWrapper {
         /* 关于 flex: auto 的解释
             - flex 是 flex-grow flex-shrink flex-basis 的复合属性
             - flex: auto <==> flex: 1 1 auto <==> 允许拉伸、允许压缩、不设置基准长度（即默认以伸缩项目的宽或高为准，如果设置了的话） */
@@ -54,7 +54,7 @@ $componentBgColor: #fff;
                 position: relative;
                 overflow: hidden;
 
-                .canvas-wrapper {
+                .canvasWrapper {
                     width: 400px;
                     // height: 712px;
                     height: calc(100% - 20px);

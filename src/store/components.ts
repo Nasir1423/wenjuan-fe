@@ -3,7 +3,7 @@ import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { produce } from 'immer';
 import { PropsType } from '@/components/QuestionComponents';
 import { message } from 'antd';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { arrayMove } from '@dnd-kit/sortable';
 
 export type ComponentsStateType = {

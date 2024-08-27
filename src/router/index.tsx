@@ -2,21 +2,25 @@ import { FC, lazy, Suspense } from 'react';
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
 
 /* Layout 模板 */
-const MainLayout = lazy(() => import('@layouts/MainLayout'));
-const ManageLayout = lazy(() => import('@layouts/ManageLayout'));
-const QuestionLayout = lazy(() => import('@layouts/QuestionLayout'));
+const MainLayout = lazy(() => import(/* webpackChunkName: "mainLayout" */ '@layouts/MainLayout'));
+const ManageLayout = lazy(
+  () => import(/* webpackChunkName: "manageLayout" */ '@layouts/ManageLayout')
+);
+const QuestionLayout = lazy(
+  () => import(/* webpackChunkName: "questionLayout" */ '@layouts/QuestionLayout')
+);
 /* Pages 页面 */
-const Home = lazy(() => import('@pages/Home'));
-const Login = lazy(() => import('@pages/Login'));
-const Register = lazy(() => import('@pages/Register'));
-const NotFound = lazy(() => import('@pages/NotFound'));
+const Home = lazy(() => import(/* webpackChunkName: "homePage" */ '@pages/Home'));
+const Login = lazy(() => import(/* webpackChunkName: "loginPage" */ '@pages/Login'));
+const Register = lazy(() => import(/* webpackChunkName: "registerPage" */ '@pages/Register'));
+const NotFound = lazy(() => import(/* webpackChunkName: "notFoundPage" */ '@pages/NotFound'));
 /* Pages/Manage 页面 */
-const List = lazy(() => import('@pages/Manage/List'));
-const Star = lazy(() => import('@pages/Manage/Star'));
-const Trash = lazy(() => import('@pages/Manage/Trash'));
+const List = lazy(() => import(/* webpackChunkName: "listPage" */ '@pages/Manage/List'));
+const Star = lazy(() => import(/* webpackChunkName: "starPage" */ '@pages/Manage/Star'));
+const Trash = lazy(() => import(/* webpackChunkName: "trashPage" */ '@pages/Manage/Trash'));
 /* Pages/Question */
-const Edit = lazy(() => import('@pages/Question/Edit'));
-const Stat = lazy(() => import('@pages/Question/Stat'));
+const Edit = lazy(() => import(/* webpackChunkName: "editPage" */ '@pages/Question/Edit'));
+const Stat = lazy(() => import(/* webpackChunkName: "statPage" */ '@pages/Question/Stat'));
 
 /* 路由规则 */
 const manageRoutes: RouteObject[] = [

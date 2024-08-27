@@ -1,7 +1,7 @@
 /* https://ant.design/components/typography-cn */
 /* https://ant.design/components/input-cn */
 import { Typography } from 'antd';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 // 定义组件的 props 类型
 export type PropsType = {
@@ -28,7 +28,7 @@ const { Paragraph } = Typography;
  * @param props 包含字段 text、placeholder
  */
 const QuestionParagraph: FC<PropsType> = (props: PropsType) => {
-  const { text = '', isCenter = false } = props;
+  const { text = '一行段落', isCenter = false } = props;
   const textList = text.split('\n'); // 为了实现安全的换行效果（也可以使用 dangerousHtml，但是太危险）
   return (
     <>

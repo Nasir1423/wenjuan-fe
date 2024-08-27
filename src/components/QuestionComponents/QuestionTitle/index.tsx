@@ -1,5 +1,5 @@
 /* https://ant.design/components/typography-cn */
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Typography } from 'antd';
 
 // 定义组件的 props 类型

@@ -26,7 +26,7 @@ const Edit: FC = () => {
         <Header />
       </div>
       {/* Content */}
-      <div className={styles['content-wrapper']}>
+      <div className={styles['contentWrapper']}>
         <div className={styles.content}>
           {/* 左侧（组件库 + 图层） */}
           <div className={styles.left}>
@@ -34,7 +34,7 @@ const Edit: FC = () => {
           </div>
           {/* 中间（画布） */}
           <div className={styles.main} onClick={clearSelectedId}>
-            <div className={styles['canvas-wrapper']}>
+            <div className={styles['canvasWrapper']}>
               {/* <div className={styles.canvas}> */}
               <div>
                 <EditCanvas loading={loading} />

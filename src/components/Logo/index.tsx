@@ -27,7 +27,7 @@ const Logo: FC = () => {
           <Title>
             <FormOutlined />
           </Title>
-          <Title className={styles.title}>问卷星</Title>
+          <Title /* className={styles.title} */>问卷星</Title>
         </Space>
       </Link>
     </div>

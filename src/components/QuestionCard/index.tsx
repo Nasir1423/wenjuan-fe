@@ -109,7 +109,7 @@ const QuestionCard: FC<Question> = props => {
         </div>
       </div>
       <Divider style={{ margin: '12px 0' }} />
-      <div className={styles['button-container']}>
+      <div className={styles['buttonContainer']}>
         <div className={styles.left}>
           <Space>
             <Button

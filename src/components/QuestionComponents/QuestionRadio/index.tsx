@@ -1,5 +1,5 @@
 import { Radio, Space, Typography } from 'antd';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 export type OptionType = {
   value: string;

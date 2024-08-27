@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 export type PropsType = {
   title?: string;
