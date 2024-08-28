@@ -60,7 +60,7 @@ const router = createBrowserRouter(routes);
 /* 使用路由器 */
 const Routes: FC = () => {
   return (
-    <Suspense fallback={<h1>Loading...😅</h1>}>
+    <Suspense fallback={<h1>Loading...</h1>}>
       <RouterProvider router={router} />
     </Suspense>
   );
